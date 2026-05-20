@@ -1,0 +1,26 @@
+name: Security Scan Vulnerable Flask App
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  security-events: write
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  security-scan:
+    uses: ananthu3212/shift-left-security-thesis/.github/workflows/security-scan-reusable.yml@main
+    with:
+      docker-image-name: vulnerable-flask-app
+      semgrep-config: p/python
+      enable-flask-rules: true
+      enable-dast: true
+      app-start-command: python3 vulnerable-flask-app.py
+      app-port: '8081'
+      trivy-severity: HIGH,CRITICAL
+      fail-on-findings: false
+    secrets: inherit
