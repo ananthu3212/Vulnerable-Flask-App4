@@ -24,3 +24,4 @@ jobs:
       trivy-severity: HIGH,CRITICAL
       fail-on-findings: false
     secrets: inherit
+    #nkm
